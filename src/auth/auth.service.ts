@@ -31,16 +31,23 @@ export class AuthService extends PrismaClient implements OnModuleInit {
  async findOne ( email? : string, name? : string) {
 
   //const user = await this.user.findFirst( { where: {  email: email } } );
-  const user = await this.user.findFirst({
-    where: {
-      OR: [
-        { email: email },
-        { name: name },
-      ],
-    },
-  });
+  try {
 
-  return user;
+    const user = await this.user.findFirst({
+      where: {
+        OR: [
+          { email: email },
+          { name: name },
+        ],
+      },
+    });
+    return user;
+  
+  }
+  catch(error){
+    return null;
+  }
+  
  }
 
 
